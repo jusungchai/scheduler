@@ -35,6 +35,29 @@ export default function Application(props) {
 
   console.log("interviewer state", state.interviewers);
 
+  function bookInterview(id, interview) {
+    console.log("Hello",id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState({
+      ...state,
+      appointments
+    });
+   /*  axios.put(`/api/appointments/:${id}`, {interview})
+    .then(() =>
+      setState({
+        ...state,
+        appointments
+      })      
+    ); */    
+  }
+
   return (
     <main className="layout">
       <section className="sidebar">        
@@ -57,7 +80,7 @@ export default function Application(props) {
       {getAppointmentsForDay(state, state.day).map((appointment) => {
         const interview = getInterview(state, appointment.interview);
         return (
-          <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={interview} interviewers={interviewers}/>
+          <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={interview} interviewers={interviewers} bookInterview={bookInterview}/>
         );
       })}
         <Appointment key="last" time="5pm" />
