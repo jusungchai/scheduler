@@ -25,4 +25,18 @@ function getInterview(state, interview) {
   return null;  
 }
 
-module.exports = {getAppointmentsForDay, getInterview}
+function getInterviewersForDay(state, day) {
+  const interviewersForDay = [];
+  const dayData = state.days.filter(d => d.name === day);
+  console.log(dayData);
+  if (dayData.length === 0) {
+    return interviewersForDay;
+  } else {
+    for (let interviewer of dayData[0].interviewers) {
+      interviewersForDay.push(state.interviewers[interviewer]);
+    }
+  }
+  return interviewersForDay;
+}
+
+module.exports = {getAppointmentsForDay, getInterview, getInterviewersForDay}
