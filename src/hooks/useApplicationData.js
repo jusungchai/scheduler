@@ -13,10 +13,8 @@ export default function useApplicationData() {
         return { ...state, day: action.day }
       case SET_APPLICATION_DATA:
         return { ...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers }
-      case SET_INTERVIEW: {
-        
-        return { ...state, appointments: action.appointments }        
-        
+      case SET_INTERVIEW: {        
+        return { ...state, appointments: action.appointments }     
       }
       default:
         throw new Error(
@@ -55,7 +53,18 @@ export default function useApplicationData() {
     };
     
     return axios.put(`/api/appointments/${id}`, {interview})
-    .then(() => {          
+    .then(() => {      
+      const dayData = state.days.filter(d => d.name === state.day);      
+      function spotCount(updatedAppointments) {
+        let count = 0;
+        for (let appointmentId of dayData[0].appointments) {          
+          if (!updatedAppointments[appointmentId].interview) {
+            count++;
+          }          
+        }
+        return count;
+      }
+      state.days[dayData[0].id - 1].spots = spotCount(appointments);      
       dispatch({
         type: SET_INTERVIEW,
         appointments
@@ -77,6 +86,8 @@ export default function useApplicationData() {
 
     return axios.delete(`/api/appointments/${id}`)
     .then(() => {
+      const dayData = state.days.filter(d => d.name === state.day);
+      state.days[dayData[0].id - 1].spots++;
       dispatch({
         type: SET_INTERVIEW,
         appointments
