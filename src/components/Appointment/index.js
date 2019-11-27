@@ -33,7 +33,6 @@ export default function Appointment(props) {
     };
     transition(SAVING);
     props.bookInterview(props.id, interview)
-    //transition(SHOW);
     .then(() =>      
       transition(SHOW)   
     )  
@@ -61,7 +60,6 @@ export default function Appointment(props) {
     transition(EDIT)
   }
 
-  console.log("yoyo",props);
   return (
     <article className="appointment">
       <Header time={props.time} />
@@ -72,7 +70,6 @@ export default function Appointment(props) {
           interviewer={props.interview.interviewer}
           onDelete={deleteAppointment}
           onEdit={edit}
-          //onCancel={() => back()}
         />
       )}
       {mode === CREATE && (

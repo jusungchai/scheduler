@@ -1,7 +1,6 @@
 function getAppointmentsForDay(state, day) {
   const appointmentsForDay = [];
   const dayData = state.days.filter(d => d.name === day);
-  console.log(dayData);
   if (dayData.length === 0) {
     return appointmentsForDay;
   } else {
@@ -13,8 +12,6 @@ function getAppointmentsForDay(state, day) {
 }
 
 function getInterview(state, interview) {
-  console.log("int", interview);
-  console.log("state", state);
   if (interview) {
     const result = {
       "student": interview.student,
@@ -28,7 +25,6 @@ function getInterview(state, interview) {
 function getInterviewersForDay(state, day) {
   const interviewersForDay = [];
   const dayData = state.days.filter(d => d.name === day);
-  console.log(dayData);
   if (dayData.length === 0) {
     return interviewersForDay;
   } else {

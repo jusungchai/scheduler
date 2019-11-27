@@ -14,7 +14,9 @@ export default function useApplicationData() {
       case SET_APPLICATION_DATA:
         return { ...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers }
       case SET_INTERVIEW: {
-        return { ...state, appointments: action.appointments }
+        
+        return { ...state, appointments: action.appointments }        
+        
       }
       default:
         throw new Error(
@@ -53,11 +55,13 @@ export default function useApplicationData() {
     };
     
     return axios.put(`/api/appointments/${id}`, {interview})
-    .then(() =>
+    .then(() => {          
       dispatch({
         type: SET_INTERVIEW,
         appointments
-      })      
+      })
+    }
+            
     );    
   }
 
@@ -72,11 +76,13 @@ export default function useApplicationData() {
     };
 
     return axios.delete(`/api/appointments/${id}`)
-    .then(() => 
+    .then(() => {
       dispatch({
         type: SET_INTERVIEW,
         appointments
       }) 
+    }
+      
     );
   }
 
