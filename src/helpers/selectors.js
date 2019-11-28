@@ -8,6 +8,7 @@ function getAppointmentsForDay(state, day) {
       appointmentsForDay.push(state.appointments[appointment]);
     }
   }
+  
   return appointmentsForDay;
 }
 
