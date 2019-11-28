@@ -8,7 +8,7 @@ export default function useApplicationData() {
   const SET_INTERVIEW = "SET_INTERVIEW";
 
   function reducer(state, action) {
-    console.log("state1", state)
+    //console.log("state1", state)
     switch (action.type) {
       case SET_DAY:
         return { ...state, day: action.day }
@@ -23,6 +23,44 @@ export default function useApplicationData() {
           ...state.appointments,
           [action.data.id]: appointment
         } : 0;
+        
+        if (action.data) {
+          let arr = [];
+      
+      function spotCounter(updatedAppointments) {
+        let count = 0;
+        let counter = 0;
+        for (let appointment of Object.values(updatedAppointments)) {
+          console.log(appointment);
+          if (!appointment.interview) {
+            count++;
+          }
+          counter++;
+          if (counter === 5) {
+            arr.push(count);
+            count = 0;
+            counter = 0;
+          }
+        }
+      }
+      console.log("array before", arr);
+      spotCounter(appointments);
+      console.log("array after", arr);
+      
+      /* function spotCount(updatedAppointments) {
+        let count = 0;
+        for (let appointmentId of dayData[0].appointments) {          
+          if (!updatedAppointments[appointmentId].interview) {
+            count++;
+          }          
+        }
+        return count;
+      } */
+      for (let i in arr) {
+        state.days[i].spots = arr[i];
+      }
+        }
+
         return { ...state, appointments: action.appointments ? action.appointments : appointments }            
       }
       default:
@@ -54,10 +92,10 @@ export default function useApplicationData() {
       webSocket.send("ping"); 
     }; */
     webSocket.onmessage = function (event) {
-      console.log(event.data);
+      //console.log(event.data);
       const data = JSON.parse(event.data);
       if (data.type === "SET_INTERVIEW") {
-        console.log(data);
+        //console.log(data);
         dispatch({ type: SET_INTERVIEW, data })
       }
     }
@@ -75,8 +113,34 @@ export default function useApplicationData() {
     
     return axios.put(`/api/appointments/${id}`, {interview})
     .then(() => {      
-      const dayData = state.days.filter(d => d.name === state.day);      
-      function spotCount(updatedAppointments) {
+      const dayData = state.days.filter(d => d.name === state.day);
+      console.log("state", state);
+      console.log("day data", dayData);
+      console.log("appointments", appointments);
+
+      let arr = [];
+      
+      function spotCounter(updatedAppointments) {
+        let count = 0;
+        let counter = 0;
+        for (let appointment of Object.values(updatedAppointments)) {
+          console.log(appointment);
+          if (!appointment.interview) {
+            count++;
+          }
+          counter++;
+          if (counter === 5) {
+            arr.push(count);
+            count = 0;
+            counter = 0;
+          }
+        }
+      }
+      console.log("array before", arr);
+      spotCounter(appointments);
+      console.log("array after", arr);
+      
+      /* function spotCount(updatedAppointments) {
         let count = 0;
         for (let appointmentId of dayData[0].appointments) {          
           if (!updatedAppointments[appointmentId].interview) {
@@ -84,9 +148,11 @@ export default function useApplicationData() {
           }          
         }
         return count;
+      } */
+      for (let i in arr) {
+        state.days[i].spots = arr[i];
       }
-      state.days[dayData[0].id - 1].spots = spotCount(appointments);
-      console.log("appointments on book", appointments);
+      //state.days[dayData[0].id - 1].spots = spotCount(appointments);
       dispatch({
         type: SET_INTERVIEW,
         appointments
@@ -108,8 +174,41 @@ export default function useApplicationData() {
 
     return axios.delete(`/api/appointments/${id}`)
     .then(() => {
-      const dayData = state.days.filter(d => d.name === state.day);
-      state.days[dayData[0].id - 1].spots++;
+      const dayData = state.days.filter(d => d.name === state.day);      
+      let arr = [];
+      
+      function spotCounter(updatedAppointments) {
+        let count = 0;
+        let counter = 0;
+        for (let appointment of Object.values(updatedAppointments)) {
+          console.log(appointment);
+          if (!appointment.interview) {
+            count++;
+          }
+          counter++;
+          if (counter === 5) {
+            arr.push(count);
+            count = 0;
+            counter = 0;
+          }
+        }
+      }
+      console.log("array before", arr);
+      spotCounter(appointments);
+      console.log("array after", arr);
+      
+      /* function spotCount(updatedAppointments) {
+        let count = 0;
+        for (let appointmentId of dayData[0].appointments) {          
+          if (!updatedAppointments[appointmentId].interview) {
+            count++;
+          }          
+        }
+        return count;
+      } */
+      for (let i in arr) {
+        state.days[i].spots = arr[i];
+      }
       dispatch({
         type: SET_INTERVIEW,
         appointments
