@@ -15,22 +15,18 @@ export default function useApplicationData() {
       case SET_APPLICATION_DATA:
         return { ...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers }
       case SET_INTERVIEW: {
-        const appointment = action.data ? {
+        const appointment = {
           ...state.appointments[action.data.id],
           interview: action.data.interview ? { ...action.data.interview } : null
-        } : 0;
-        const appointments = action.data ? {
+        };
+        const appointments = {
           ...state.appointments,
           [action.data.id]: appointment
-        } : 0;
-        
-        if (action.data) {
-          const arr = spotsCounter(appointments);          
-          for (let i in arr) {
-            state.days[i].spots = arr[i];
-          }
+        };        
+        const arr = spotsCounter(appointments);          
+        for (let i in arr) {
+          state.days[i].spots = arr[i];
         }
-
         return { ...state, appointments: action.appointments ? action.appointments : appointments }            
       }
       default:
