@@ -122,7 +122,7 @@ export default function Appointment(props) {
       )}
       {mode === ERROR_DELETE && (
         <Error
-          message={"Could not save the appointment"}
+          message={"Could not delete the appointment"}
           onClose={back}
         />
       )}
