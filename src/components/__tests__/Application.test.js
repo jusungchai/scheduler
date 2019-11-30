@@ -139,6 +139,7 @@ describe("Application", () => {
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
     const appointments = getAllByTestId(container, "appointment");
+    
     const appointment = appointments[0];
 
     fireEvent.click(getByAltText(appointment, "Add"));
@@ -150,14 +151,7 @@ describe("Application", () => {
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
     fireEvent.click(getByText(appointment, "Save"));
 
-    await waitForElement(() =>
-      expect(
-        getByText(
-          appointment,
-          "Could not save the appointment"
-        )
-      )
-    );
+    await waitForElement(() => expect(getByText(appointment, "Could not save the appointment")));
   });
 
   xit("shows the delete error when failing to delete an existing appointment", async () => {
