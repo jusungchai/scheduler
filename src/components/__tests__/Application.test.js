@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, prettyDOM, getByText, getAllByTestId, getByAltText, getByPlaceholderText } from "@testing-library/react";
+import { render, cleanup, waitForElement, prettyDOM, getByText, getAllByTestId, getByAltText, getByPlaceholderText, queryByText } from "@testing-library/react";
 
 import Application from "components/Application";
 import { fireEvent } from "@testing-library/react/dist";
@@ -21,7 +21,7 @@ describe("Application", () => {
   });
 
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
-    const { container } = render(<Application />);
+    const { container, debug } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
@@ -37,6 +37,21 @@ describe("Application", () => {
 
     fireEvent.click(getByText(appointment, "Save"));
 
-    console.log(prettyDOM(appointment));    
+    //debug();
+
+    expect(getByText(appointment, "SAVING")).toBeInTheDocument();    
+
+    const day = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
+
+    //Expect no change in spots due to websockets implementation
+    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+    
+    console.log(prettyDOM(day));
+
+    //expect(getByText(appointment, "SAVING")).not.toBeInTheDocument();
+
+    //console.log(prettyDOM(appointment));    
   });
 });
