@@ -1,17 +1,20 @@
 export default function spotsCounter(updatedAppointments) {
-  let arr = [];
-  let count = 0;
-  let counter = 0;
+  let spotsRemainingPerDay = [];
+  let spotsLeftInDay = 0;
+  let appointmentSlotsCounter = 0;
+  
+  //loop through each appointment slot to count empty slots (null)
   for (let appointment of Object.values(updatedAppointments)) {
     if (!appointment.interview) {
-      count++;
+      spotsLeftInDay++;
     }
-    counter++;
-    if (counter === 5) {
-      arr.push(count);
-      count = 0;
-      counter = 0;
+    appointmentSlotsCounter++;
+    //when day is finished, reset counters to check next day
+    if (appointmentSlotsCounter === 5) {
+      spotsRemainingPerDay.push(spotsLeftInDay);
+      spotsLeftInDay = 0;
+      appointmentSlotsCounter = 0;
     }
   }
-  return arr;
+  return spotsRemainingPerDay;
 }

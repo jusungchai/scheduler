@@ -3,6 +3,7 @@ import InterviewerList from "../InterviewerList";
 import Button from "../Button";
 
 export default function Form(props) {
+  //initialize states
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
@@ -17,6 +18,7 @@ export default function Form(props) {
     props.onCancel();
   }
 
+  //validation to check if required fields are empty
   function validate() {
     if (name === "") {
       setError("Student name cannot be blank");
@@ -41,9 +43,6 @@ export default function Form(props) {
             type="text"
             name="name"
             placeholder="Enter Student Name"
-            /*
-              This must be a controlled component
-            */
             value={name}
             onChange={event => setName(event.target.value)}
             data-testid="student-name-input"
