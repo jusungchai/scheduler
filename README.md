@@ -29,7 +29,7 @@ Please refer to attached gif files for demo.
 6. Visit http://localhost:8000 on the browser
 
 7. To checkout the application without downloading, please visit: 
-  - lit-scheduler.herokuapp.com/api/days (must visit this link first to reload database from inactivity time out)
+  - https://lit-scheduler.herokuapp.com/api/days (must visit this link first to reload database from inactivity time out)
   - https://fervent-carson-75d1d8.netlify.com/ (visit this link second to launch application)
 
 8. Enjoy!
