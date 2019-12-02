@@ -32,6 +32,7 @@ export default function useApplicationData() {
         dispatch({ type: SET_INTERVIEW, data })
       }
     }
+    return () => webSocket.close();
   }, []);  
 
   function bookInterview(id, interview) {   
