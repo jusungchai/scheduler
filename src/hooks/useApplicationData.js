@@ -18,7 +18,7 @@ export default function useApplicationData() {
   //happens only once on new render
   //when websocket server receives a message, dispatch the data holding interview data (booked or null for delete)
   useEffect(() => {
-    const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+    const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL || '');
     const daysData = axios.get("/api/days");
     const appointmentsData = axios.get("/api/appointments");
     const interviewersData = axios.get("/api/interviewers");
