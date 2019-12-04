@@ -40,3 +40,18 @@ Please refer to attached gif files for demo.
 - react 16.12.0 or above
 - react-dom 16.9.0 or above
 - react-scripts 3.0.0 or above
+
+## Dev Dependencies
+- babel/core 7.4.3 or above
+- storybook/addon-actions 5.0.10 or above
+- storybook/addon-backgrounds 5.0.10 or above
+- storybook/addon-links 5.0.10 or above
+- storybook/addons 5.0.10 or above
+- storybook/react 5.0.10 or above
+- testing-library/jest-dom 4.0.0 or above
+- testing-library/react 8.0.7 or above
+- testing-library/react-hooks 3.2.1 or above
+- babel-loader 8.0.5 or above
+- node-sass 4.11.0 or above
+- prop-types 15.7.2 or above
+- react-test-renderer 16.12.0 or above
